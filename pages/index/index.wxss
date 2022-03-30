@@ -1,0 +1,27 @@
+/**index.wxss**/
+/* 整体样式 */
+
+/* 轮播图区域样式 */
+.banners {
+  width: 100%;
+  height: 300rpx;
+}
+.banners image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 导航区样式 */
+.navContainer{
+  display: flex;
+
+}
+.navItem{
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navItem :nth-child(2){
+  font-size: 26rpx;
+}

@@ -1,0 +1,40 @@
+<!--index.wxml-->
+<view class="indexContainer">
+  <!-- 轮播图 -->
+  <swiper class="banners" indicator-dots 	indicator-color="#d1d8e0" 	indicator-active-color="#2d98da" 	circular>
+    <swiper-item>
+      <image src="/static/images/nvsheng.jpg"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/static/images/nvsheng.jpg"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/static/images/nvsheng.jpg"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 导航区域 -->
+  <view class="navContainer">
+    <view class="navItem">
+        <!-- 小程序会计算空白节点 -->
+        <text class="iconfont icon-xihuan"></text>
+        <text class="font-sise:26rpx">每日推荐</text>
+    </view>
+    <view class="navItem">
+        <text class="iconfont icon-yinle"></text>
+        <text>其他页面</text>
+    </view>
+    <view class="navItem">
+        <text class="iconfont icon-sort"></text>
+        <text>排行榜</text>
+    </view>
+    <view class="navItem">
+        <text class="iconfont icon-diepian1"></text>
+        <text>电台</text>
+    </view>
+    <view class="navItem">
+        <text class="iconfont icon-shexiangtou"></text>
+        <text>直播</text>
+    </view>
+  </view>
+</view>
