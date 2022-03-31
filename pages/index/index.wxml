@@ -13,7 +13,7 @@
     </swiper-item>
   </swiper>
 
-  <!-- 导航区域 -->
+  <!-- 五个图标导航区域 -->
   <view class="navContainer">
     <view class="navItem">
         <!-- 小程序会计算空白节点 -->
@@ -36,5 +36,52 @@
         <text class="iconfont icon-shexiangtou"></text>
         <text>直播</text>
     </view>
+  </view>
+
+  <!-- 推荐歌曲 -->
+  <view class="recommentdContainer">
+    <!-- 头部区 -->
+      <view class="header">
+        <view class="title">推荐歌曲</view>
+        <view class="nav">
+          <text>为你精心推荐</text>
+          <text class="more">查看更多</text>
+        </view>
+      </view>
+    <!-- 内容推荐区 -->
+    <scroll-view class="recommentdSrroll" enable-flex scroll-x>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+      <view class="scrollItem">
+        <image src="/static/images/nvsheng.jpg"></image>
+        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      </view>
+    </scroll-view>
   </view>
 </view>

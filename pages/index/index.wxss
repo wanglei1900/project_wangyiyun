@@ -6,22 +6,73 @@
   width: 100%;
   height: 300rpx;
 }
+
 .banners image {
   width: 100%;
   height: 100%;
 }
 
 /* 导航区样式 */
-.navContainer{
+.navContainer {
   display: flex;
 
 }
-.navItem{
+
+.navItem {
   width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.navItem :nth-child(2){
+
+.navItem :nth-child(2) {
   font-size: 26rpx;
+}
+
+/* 推荐歌曲样式 */
+.recommentdContainer {
+  padding: 20rpx;
+}
+
+.recommentdContainer .header .title {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.recommentdContainer .header .more {
+  float: right;
+  border: 1px solid #333;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+/* 内容推荐滚动去 */
+.recommentdSrroll {
+  display: flex;
+}
+
+.recommentdSrroll .scrollItem {
+  width: 200rpx;
+  margin-right: 20rpx;
+}
+
+.recommentdSrroll .scrollItem image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 10rpx;
+}
+
+.recommentdSrroll .scrollItem text {
+  font-size: 26rpx;
+  /* 单行文本溢出，省略号代替 */
+  /* 单行文本 */
+  white-space: nowrap;
+  /* 溢出隐藏。 */
+  overflow: hidden;
+  /* overflow只能作用于块级元素，内联元素不涉及到溢出，故调整为块级元素 */
+  display: block;
+  /* text-overflow为文本溢出时用什么代替 */
+  /* 默认clip为直接省略，当ellipsis用...代替 */
+  text-overflow: ellipsis;
 }
