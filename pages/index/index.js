@@ -1,4 +1,8 @@
 // index.js
+
+// 引入封装的ajax函数
+import request from '../../utils/request'
+
 // 获取应用实例
 const app = getApp()
 
@@ -9,7 +13,8 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
-    banners:[]
+    banners: [],
+    recommendList:[]
   },
   // 事件处理函数
   bindViewTap() {
@@ -23,24 +28,23 @@ Page({
         canIUseGetUserProfile: true
       })
     }
+
+    this.getInitData()
+  },
+
+  // 获取初始化数据函数
+  async getInitData() {
     // 发请求获取数据
-    wx.request({
-      url: 'http://localhost:3000/banner',
-      data: { type: 2 },
-      success:(res)=>{
-        console.log(res.data);
-        // 更新banners状态数据
-        this.setData({
-          banners : res.data.banners
-        })
-
-
-      },
-      fail:(err)=>{
-        console.log('请求失败', err);
-      }
+    let result1 = await request('/banner', { type: 2 })
+    let reuslt2 = await request('/personalized', { limit: 30 })
+    console.log(reuslt2);
+    // 修改banners数据
+    this.setData({
+      banners: result1.banners,
+      recommendList: reuslt2.result
     })
   },
+
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
     wx.getUserProfile({
