@@ -44,37 +44,9 @@
       </view>
     <!-- 内容推荐区 -->
     <scroll-view class="recommentdSrroll" enable-flex scroll-x>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
-      </view>
-      <view class="scrollItem">
-        <image src="/static/images/nvsheng.jpg"></image>
-        <text>我喜欢贾静雯，贾静雯也喜欢我</text>
+      <view class="scrollItem"  wx:for="{{recommendList}}" wx:for-item="recommend" wx:key="id">
+        <image src="{{recommend.picUrl}}"></image>
+        <text>{{recommend.name}}</text>
       </view>
     </scroll-view>
   </view>

@@ -13,8 +13,8 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
-    banners: [],
-    recommendList:[]
+    banners: [],  //轮播图数据
+    recommendList:[]  //推荐歌曲
   },
   // 事件处理函数
   bindViewTap() {
@@ -37,7 +37,7 @@ Page({
     // 发请求获取数据
     let result1 = await request('/banner', { type: 2 })
     let reuslt2 = await request('/personalized', { limit: 30 })
-    console.log(reuslt2);
+    console.log(reuslt2.result);
     // 修改banners数据
     this.setData({
       banners: result1.banners,

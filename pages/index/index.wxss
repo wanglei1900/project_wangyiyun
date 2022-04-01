@@ -66,13 +66,19 @@
 .recommentdSrroll .scrollItem text {
   font-size: 26rpx;
   /* 单行文本溢出，省略号代替 */
-  /* 单行文本 */
-  white-space: nowrap;
-  /* 溢出隐藏。 */
-  overflow: hidden;
+  /* 单行文本,溢出隐藏 */
   /* overflow只能作用于块级元素，内联元素不涉及到溢出，故调整为块级元素 */
-  display: block;
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
   /* text-overflow为文本溢出时用什么代替 */
   /* 默认clip为直接省略，当ellipsis用...代替 */
+  /* text-overflow: ellipsis; */
+  /* display: block; */
+
+
+  display: -webkit-box;
   text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
