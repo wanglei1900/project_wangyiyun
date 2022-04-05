@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="indexContainer">
   <!-- 轮播图 -->
-  <swiper class="banners" indicator-dots 	indicator-color="#d1d8e0" 	indicator-active-color="#2d98da" 	circular>
+  <swiper class="banners" indicator-dots indicator-color="#d1d8e0" indicator-active-color="#2d98da" circular>
     <swiper-item wx:for="{{banners}}" wx:for-item="bannerItem" wx:key="bannerId">
       <image src="{{bannerItem.pic}}"></image>
     </swiper-item>
@@ -10,44 +10,57 @@
   <!-- 五个图标导航区域 -->
   <view class="navContainer">
     <view class="navItem">
-        <!-- 小程序会计算空白节点 -->
-        <text class="iconfont icon-xihuan"></text>
-        <text class="font-sise:26rpx">每日推荐</text>
+      <!-- 小程序会计算空白节点 -->
+      <text class="iconfont icon-xihuan"></text>
+      <text class="font-sise:26rpx">每日推荐</text>
     </view>
     <view class="navItem">
-        <text class="iconfont icon-yinle"></text>
-        <text>其他页面</text>
+      <text class="iconfont icon-yinle"></text>
+      <text>其他页面</text>
     </view>
     <view class="navItem">
-        <text class="iconfont icon-sort"></text>
-        <text>排行榜</text>
+      <text class="iconfont icon-sort"></text>
+      <text>排行榜</text>
     </view>
     <view class="navItem">
-        <text class="iconfont icon-diepian1"></text>
-        <text>电台</text>
+      <text class="iconfont icon-diepian1"></text>
+      <text>电台</text>
     </view>
     <view class="navItem">
-        <text class="iconfont icon-shexiangtou"></text>
-        <text>直播</text>
+      <text class="iconfont icon-shexiangtou"></text>
+      <text>直播</text>
     </view>
   </view>
 
   <!-- 推荐歌曲 -->
   <view class="recommentdContainer">
     <!-- 头部区 -->
-      <view class="header">
-        <view class="title">推荐歌曲</view>
-        <view class="nav">
-          <text>为你精心推荐</text>
-          <text class="more">查看更多</text>
-        </view>
-      </view>
+    <NaviHeader title='推荐歌曲' nav='为你精心推荐'></NaviHeader>
     <!-- 内容推荐区 -->
     <scroll-view class="recommentdSrroll" enable-flex scroll-x>
-      <view class="scrollItem"  wx:for="{{recommendList}}" wx:for-item="recommend" wx:key="id">
+      <view class="scrollItem" wx:for="{{recommendList}}" wx:for-item="recommend" wx:key="id">
         <image src="{{recommend.picUrl}}"></image>
         <text>{{recommend.name}}</text>
       </view>
     </scroll-view>
+  </view>
+
+  <!-- 排行版 -->
+  <view class="topList">
+    <!-- 头部区 -->
+    <NaviHeader title='排行版' nav='热歌风向标'></NaviHeader>
+    <!-- 内容区 -->
+    <swiper class="topListSwiper" next-margin="50rpx">
+      <swiper-item wx:for="{{recommendBoard}}" wx:for-item="board" wx:key="id">
+        <view class="swiperItem">
+          <view class="title">{{board.name}}</view>
+          <view class="musicItem" wx:for="{{board.topThree}}" wx:for-item="song" wx:key="id">
+            <image src="{{song.al.picUrl}}"></image>
+            <text class="order">{{index+1}}</text>
+            <text>{{song.name}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
   </view>
 </view>

@@ -34,22 +34,10 @@
   padding: 20rpx;
 }
 
-.recommentdContainer .header .title {
-  font-size: 28rpx;
-  color: #333;
-}
-
-.recommentdContainer .header .more {
-  float: right;
-  border: 1px solid #333;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  font-size: 24rpx;
-}
-
 /* 内容推荐滚动去 */
 .recommentdSrroll {
   display: flex;
+  height: 300rpx;
 }
 
 .recommentdSrroll .scrollItem {
@@ -75,10 +63,45 @@
   /* text-overflow: ellipsis; */
   /* display: block; */
 
-
   display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+/* 排行版区域 */
+.topList{
+  padding: 20rpx;
+}
+
+/* 排行版轮播图区域 */
+.topListSwiper{
+  height: 450rpx; 
+}
+.swiperItem{
+  background: #f5f6fa;
+  width: 97%;
+}
+.swiperItem .title{
+  font-size: 32rpx;
+  line-height: 90rpx;
+}
+
+.musicItem{
+  height: 100rpx;
+  line-height: 100rpx;
+  /* 当一个元素设置为flex盒模型以后其子元素会自动转换成block */
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.musicItem image{
+  width: 100rpx;
+  height: 100rpx;
+}
+.musicItem .order{
+  width: 100rpx;
+  text-align: center;
+}
+
