@@ -1,1 +1,27 @@
-/* pages/video/video.wxss */
+/* 视频页 */
+.videoContainer .header{
+    display: flex;
+    padding: 10rpx;
+}
+.videoContainer .header image{
+    height: 60rpx;
+    width: 60rpx;
+}
+.videoContainer .header .search{
+    border: 1px solid #eee;
+    text-align: center;
+    /* 
+    flex-grow:可拉伸 0 flex-shrink:可压缩 1 flex-basis:当前元素的宽度  auto
+
+    flex:1 ---意味着lex-grow:1; flex-shrink:1; flex-basis:0%
+    父元素宽度自动成为100%
+    flex:auto ---意味着lex-grow:1; flex-shrink:1; flex-basis:auto
+    */
+    flex: 1;
+    margin: 0 20rpx;
+    text-align: center;
+    color: #2d98da;
+    font-size: 26rpx;
+    line-height: 60rpx;
+}
+

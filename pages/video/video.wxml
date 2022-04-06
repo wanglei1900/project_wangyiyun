@@ -1,2 +1,10 @@
-<!--视频页-->
-<text>pages/video/video.wxml</text>
+<view class="videoContainer">
+    <!-- 头部搜索区域 -->
+    <view class="header">
+        <image src="/static/images/video/video.jpg"></image>
+        <view class="search">
+            搜索音乐
+        </view>
+        <image src="/static/images/logo.png"></image>
+    </view>
+</view>
