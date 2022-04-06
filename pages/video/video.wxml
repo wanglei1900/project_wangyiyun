@@ -7,4 +7,13 @@
         </view>
         <image src="/static/images/logo.png"></image>
     </view>
+
+    <!-- 导航区域 -->
+    <scroll-view enable-flex scroll-x class="navContainer">
+        <view class="navcontent" wx:for="{{videoGroupList}}" wx:key="id">
+            <view class="navItem {{item.id === navId ? 'active' : ''}} " data-id="{{item.id}}" bindtap="selectTab">
+                {{item.name}}
+            </view>
+        </view>
+    </scroll-view>
 </view>
