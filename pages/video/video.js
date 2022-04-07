@@ -7,7 +7,8 @@ Page({
    */
   data: {
     videoGroupList: [],    //初始化导航标签数据
-    navId:'',   //导航标签的id标识
+    navId: '',   //导航标签的id标识
+    videoList: [],   //视频列表数据
   },
 
   /**
@@ -23,13 +24,30 @@ Page({
     let result = await request('/video/group/list')
     // 更新videoGroupList
     this.setData({
-      videoGroupList:result.data.slice(0,14),
-      navId:result.data[0].id
+      videoGroupList: result.data.slice(0, 14),
+      navId: result.data[0].id
+    })
+    // 在获取导航标签id的时候获取
+    this.getVideoList(this.data.navId)
+  },
+
+  // 获取识破列表数据的功能函数
+  async getVideoList(navId) {
+    let videoListData = await request('/video/group', { id: navId })
+    console.log(videoListData);
+    /* let index = 0
+    let videoList = videoListData.datas.map(item =>{
+      item.id = index++
+      return item
+    }) */
+    // 更新videoList的状态数据
+    this.setData({
+      videoList:videoListData.datas
     })
   },
 
   // 点击下标，排他
-  selectTab(event){
+  selectTab(event) {
     // let navId = event.currentTarget.id    // 会自动将number转换成string
     let navId = event.currentTarget.dataset.id    //
     // 位移运算符，>>>0

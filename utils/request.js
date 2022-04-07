@@ -26,18 +26,26 @@ export default (url, data = {}, method = 'GET') => {
         // 1.初始化promise状态为pending
         // 2.执行异步人物
         wx.request({
-            url:config.host +url,
+            url: config.host + url,
             data,
             method,
+            header: {
+                // 判断本地是否cookies，如果没有 直接取空串
+                'cookie': wx.getStorageSync('cookies').toString()
+            },
             // 3.根据异步任务的结果修改promise的状态
             success: (res) => {
-                //   console.log(res.data);
+                // 登录成功请求，将用户cookine字段保存至本地
+                if (data.isLogin) {
+                    wx.setStorageSync('cookies', res.cookies)
+                }
+                console.log(res, 'request42行');
                 // 修改promise状态为成功resolve
                 resolve(res.data)
             },
             fail: (err) => {
                 console.log('请求失败', err);
-                // 修改promise状态为成功reject
+                // 修改promise状态 为成功reject
                 reject(err)
             }
         })

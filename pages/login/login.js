@@ -85,8 +85,8 @@ Page({
     // 首先我们需要用到一个 WxValidate插件 - 表单验证的js插件（未完成）
 
     // 后端验证
-    let result = await request('/login/cellphone', { phone, password })
-    console.log(result);
+    let result = await request('/login/cellphone', { phone, password, isLogin: true })
+    // console.log(result);
     // 200,400,501,502
     if (result.code == 200) {
       // 登录成功

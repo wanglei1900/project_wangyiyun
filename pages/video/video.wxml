@@ -16,4 +16,11 @@
             </view>
         </view>
     </scroll-view>
+
+    <!-- 视频列表 -->
+    <scroll-view>
+        <view class="videoItem">
+            <video src=""></video>
+        </view>
+    </scroll-view>
 </view>
