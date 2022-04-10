@@ -1,13 +1,15 @@
 /* 视频页 */
-.videoContainer .header{
+.videoContainer .header {
     display: flex;
     padding: 10rpx;
 }
-.videoContainer .header image{
+
+.videoContainer .header image {
     height: 60rpx;
     width: 60rpx;
 }
-.videoContainer .header .search{
+
+.videoContainer .header .search {
     border: 1px solid #eee;
     text-align: center;
     /* 
@@ -26,24 +28,101 @@
 }
 
 /* 导航区 */
-.navContainer{
+.navContainer {
     display: flex;
     height: 60rpx;
     /* 默认不允许换行，单行 */
-    white-space: nowrap; 
+    white-space: nowrap;
 }
-.navContainer .navcontent{
+
+.navContainer .navcontent {
     padding: 0 20rpx;
     line-height: 60rpx;
 
     height: 60rpx;
 }
-.navcontent .navItem{
+
+.navcontent .navItem {
     font-size: 28rpx;
     box-sizing: border-box;
     height: 60rpx;
 }
-.active{
+
+.active {
     border-bottom: 1rpx solid #2d98da;
 }
 
+/* 视频区 */
+.videoScroll {
+    margin-top: 20rpx;
+    /* 
+        滑块的高度必须是动态的
+        vh vw 是视口高度，1vh = 1%视口高度
+    */
+    height: calc(100vh - 162rpx);
+}
+
+.videoItem {
+    padding: 0 3%;
+}
+
+.videoItem .common {
+    width: 100%;
+    height: 360rpx;
+    border-radius: 10rpx;
+}
+
+.videoItem .content {
+    font-size: 26rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    max-width: 500rpx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* footer */
+.footer {
+    border-top: 1rpx solid #eee;
+    padding: 20rpx 0;
+}
+
+.footer .avatar {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.footer .nickName {
+    font-size: 26rpx;
+    vertical-align: middle;
+    margin-left: 20rpx;
+}
+
+.footer .comments_praised {
+    float: right;
+}
+
+.comments_praised .btn {
+    display: inline;
+    padding: 0;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.comments_praised .btn:after {
+    border: none;
+}
+
+.comments_praised .item {
+    margin-left: 50rpx;
+    position: relative;
+}
+
+.comments_praised .item .count {
+    position: absolute;
+    top: -20rpx;
+    font-size: 20rpx;
+}

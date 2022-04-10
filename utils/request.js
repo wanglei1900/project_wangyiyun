@@ -30,8 +30,9 @@ export default (url, data = {}, method = 'GET') => {
             data,
             method,
             header: {
-                // 判断本地是否cookies，如果没有 直接取空串
-                'cookie': wx.getStorageSync('cookies').toString()
+                // 首先需要对cookies数组中的某一项，找到带'MUSIC_U'字段
+                // 然后判断本地cookies已经返回，如果没有，直接取空串
+                'cookie': wx.getStorageSync('cookies')?wx.getStorageSync('cookies').find(item => item.indexOf('MUSIC_U') !== -1):''
             },
             // 3.根据异步任务的结果修改promise的状态
             success: (res) => {
@@ -39,7 +40,7 @@ export default (url, data = {}, method = 'GET') => {
                 if (data.isLogin) {
                     wx.setStorageSync('cookies', res.cookies)
                 }
-                console.log(res, 'request42行');
+                // console.log(res, 'request42行');
                 // 修改promise状态为成功resolve
                 resolve(res.data)
             },
@@ -49,6 +50,5 @@ export default (url, data = {}, method = 'GET') => {
                 reject(err)
             }
         })
-
     })
 }

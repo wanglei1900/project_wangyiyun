@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "视频"
+  "navigationBarTitleText": "视频",
+  "enablePullDownRefresh": true
 }
