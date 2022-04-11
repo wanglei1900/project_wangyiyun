@@ -1,0 +1,22 @@
+<view class="songContainer">
+    <view class="author">beyond</view>
+    <view class="circle"></view>
+    <!-- isPlay控制播放，needleRotate控制腰杆旋转 -->
+    <image class="needle {{isPlay && 'needleRotate'}}" src="/static/images/song/needle.png"></image>
+    <view class="discContainer">
+        <image class="disc" src="/static/images/song/disc.png"></image>
+        <image class="musicImage {{isPlay && 'discAnimation'}}" src="/static/images/nvsheng.jpg"></image>
+    </view>
+    <!-- 底部控制播放区域 -->
+    <view class="musicControl">
+        <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
+
+        <text class="iconfont icon-shangyishou"></text>
+
+        <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="handleMusicPlay"></text>
+
+        <text class="iconfont></text>
+
+        <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
+    </view>
+</view>
