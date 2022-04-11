@@ -1,11 +1,11 @@
 <view class="songContainer">
-    <view class="author">beyond</view>
+    <view class="author">{{song.ar[0].name}}</view>
     <view class="circle"></view>
     <!-- isPlay控制播放，needleRotate控制腰杆旋转 -->
     <image class="needle {{isPlay && 'needleRotate'}}" src="/static/images/song/needle.png"></image>
     <view class="discContainer">
         <image class="disc" src="/static/images/song/disc.png"></image>
-        <image class="musicImage {{isPlay && 'discAnimation'}}" src="/static/images/nvsheng.jpg"></image>
+        <image class="musicImage {{isPlay && 'discAnimation'}}" src="{{song.al.picUrl}}"></image>
     </view>
     <!-- 底部控制播放区域 -->
     <view class="musicControl">
@@ -15,7 +15,7 @@
 
         <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="handleMusicPlay"></text>
 
-        <text class="iconfont></text>
+        <text class="iconfont icon-next"></text>
 
         <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
     </view>
