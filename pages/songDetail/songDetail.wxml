@@ -7,15 +7,30 @@
         <image class="disc" src="/static/images/song/disc.png"></image>
         <image class="musicImage {{isPlay && 'discAnimation'}}" src="{{song.al.picUrl}}"></image>
     </view>
+
+    <!-- 进度条控制区域 -->
+    <view class="progressControl">
+        <text>{{currentTime}}</text>
+        <!-- 总进度条 -->
+        <view class="barControl">
+            <!-- 实时进度条 -->
+            <view class="audio-currentTime-Bar" style="width: {{currentWidth + 'rpx'}}">
+                <!-- 小圆球 -->
+                <view class="audio-circle"></view>
+            </view>
+        </view>
+        <text>{{durationTime}}</text>
+    </view>
+    
     <!-- 底部控制播放区域 -->
     <view class="musicControl">
         <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
 
-        <text class="iconfont icon-shangyishou"></text>
+        <text id="prev" bindtap="handlerSwitch" class="iconfont icon-shangyishou"></text>
 
         <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="handleMusicPlay"></text>
 
-        <text class="iconfont icon-next"></text>
+        <text id="next" bindtap="handlerSwitch" class="iconfont icon-next"></text>
 
         <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
     </view>

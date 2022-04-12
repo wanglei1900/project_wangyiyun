@@ -1,3 +1,5 @@
+// 引入第三方的包
+import PubSub from 'pubsub-js'
 
 import request from '../../utils/request'
 // pages/recommendSong/recommentSong.js
@@ -10,6 +12,7 @@ Page({
     day: '',
     month: '',
     recommendList:[],   //每日推荐数据
+    index:0,    //点击歌曲列表的下标
   },
 
   /**
@@ -24,6 +27,27 @@ Page({
 
     // 调用方法getRecommendSongs
     this.getRecommendSongs()
+
+    // 订阅songDetail发布的id消息
+    PubSub.subscribe('switchType', (msg,switchType)=>{
+      // console.log(msg,data);
+      let {recommendList,index} = this.data
+      if (switchType == 'prev') {   // 上一首
+        index -= 1
+      }else{    //  下一首
+        index +=1
+      }
+
+      // 必须更新下标
+      this.setData({
+        index
+      })
+
+      let musicId = recommendList[index].id
+      console.log(musicId);
+      // 将最新的musicid发送给songdetail页面
+      PubSub.publish('musicId',musicId)
+    })
   },
 
   // 获取每日推荐歌曲  recommendList
@@ -37,12 +61,19 @@ Page({
 
   // 点击歌曲跳转songDetail
   toSongDetail(event){
-    let song = event.currentTarget.dataset.song
-    let musicId = event.currentTarget.dataset.id
-    console.log(musicId);
+    // console.log(event);
+    // let song = event.currentTarget.dataset.song
+    // let musicId = event.currentTarget.dataset.id
+    let {song,musicid,index} = event.currentTarget.dataset
+    console.log(musicid);
+    // 更新点击记录的下标
+    this.setData({
+      index
+    })
+
     // 路由跳转传参： query
     wx.navigateTo({
-      url: '/pages/songDetail/songDetail?musicId=' + musicId,
+      url: '/pages/songDetail/songDetail?musicid=' + musicid,
     })
   },
 
