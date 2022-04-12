@@ -4,6 +4,9 @@ import PubSub from 'pubsub-js'
 // pages/songDetail/songDetail.js
 import request from '../../utils/request'
 
+// 获取全局app实例
+let appInstance = getApp()
+
 
 Page({
 
@@ -13,7 +16,9 @@ Page({
     data: {
         isPlay: false,     //标识音乐是否播放
         song: {},     //歌曲详情
-        currentWidth:0, //
+        musicId: '',    //音乐id
+        musicUrl: '',    //音乐的链接
+        currentWidth: 0,     //进度条实时的进度
     },
 
     /**
@@ -26,22 +31,55 @@ Page({
         let song = JSON.parse(options) */
         // console.log(options);
         // 获取音乐id
-        let ids = options.musicid
-        // /song/detail
-        this.getSongDetail(ids)
-
-        // 订阅recommendSong页面发布的消息：  musicId
-        PubSub.subscribe('musicId',(msg,musicId)=>{
-            console.log('来自recommendSong页面发来的消息', musicId);
+        let musicId = options.musicid
+        this.setData({
+            musicId
         })
-
         this.getSongDetail(musicId)
 
+        // 判断当前音乐是否在播放
+        if (appInstance.globalData.isMUsicPlay && appInstance.globalData.isMUsicPlay.musicId === musicId) {
+            // 说明音乐在播放，修改当前页面音乐播放状态为trur
+            this.setData({
+                isPlay: true
+            })
+        }
+
+        // 生成音频是实例
+        this.backgroundAudioManager = wx.getBackgroundAudioManager()
+        // 【监听】音乐播放/暂停/停止
+        this.backgroundAudioManager.onPlay(() => {
+            this.changePlayStatus(true)
+            appInstance.globalData.musicId = musicId
+        })
+        this.backgroundAudioManager.onPause(() => {
+            this.changePlayStatus(false)
+        })
+        this.backgroundAudioManager.onStop(() => {
+            this.changePlayStatus(false)
+        })
+
+        // 订阅recommendSong页面发布的消息：  musicId
+        PubSub.subscribe('musicId', (msg, musicId) => {
+            // console.log('来自recommendSong页面发来的消息', musicId);
+            // 获取最新的音乐详情数据
+            this.getSongDetail(musicId)
+            // 自动播放
+        })
     },
 
+    // 给onload里封装播放状态的函数
+    changePlayStatus(status){
+        this.setData({
+            isPlay: status
+        })
+        appInstance.globalData.isMUsicPlay = status
+        
+    }
+
     // 封装歌曲详情页获取歌曲链接的请求
-    async getSongDetail(ids) {
-        let result = await request('/song/detail', { ids })
+    async getSongDetail(musicId) {
+        let result = await request('/song/detail', { ids: musicId })
         // console.log(result);
         this.setData({
             song: result.songs[0]
@@ -52,31 +90,43 @@ Page({
             title: this.data.song.name,
         })
     },
+
     // 点击播放事件的回调
     handleMusicPlay() {
         let isPlay = !this.data.isPlay
         // 修改播放状态的标识符
-        this.setData({
+        // onload监听里已经完成以下代码
+        /* this.setData({
             isPlay
-        })
+        }) */
+
+        let { musicId } = this.data
 
         // 控制歌曲的播放
-        this.musicControl(isPlay)
+        this.musicControl(isPlay, musicId)
     },
 
     // 封装控制音乐功能播放/暂停的功能函数，
-    async musicControl(isPlay) {
-        // 生成音频是实例
-        let backgroundAudioManager = wx.getBackgroundAudioManager()
+    async musicControl(isPlay, musicId) {
         if (isPlay) {   //播放
-            let { id } = this.data.song
             // 获取音乐的播放地址
-            let musicLinkData = await request('/song/url', { id })
+            let musicLinkData = await request('/song/url', { id: musicId })
             let musicUrl = musicLinkData.data[0].url
-            backgroundAudioManager.src = musicUrl
-            backgroundAudioManager.title = this.data.song.name
+
+            this.backgroundAudioManager.src = musicUrl
+            this.backgroundAudioManager.title = this.data.song.name
+
+            // 修改全局的音乐播放状态
+            // onload监听里已经完成以下两步
+            // appInstance.globalData.isMUsicPlay = true
+            // appInstance.globalData.musicId = musicId
+
         } else {  //暂停
-            backgroundAudioManager.pause()
+            this.backgroundAudioManager.pause()
+            // 修改全局的音乐播放状态
+            // onload监听里已经完成以下两步
+            // appInstance.globalData.isMUsicPlay = false
+            // appInstance.globalData.musicId = musicId
         }
     },
 
@@ -85,10 +135,8 @@ Page({
         // 判断按钮是上一首还是下一首
         let { id } = event.currentTarget
 
-        
-
         // 将切换歌曲的类型发送给recommend页面
-        PubSub.publish('switchType',id)
+        PubSub.publish('switchType', id)
 
         // 获取音乐最新的详情数据
 
