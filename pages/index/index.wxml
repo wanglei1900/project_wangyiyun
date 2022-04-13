@@ -9,25 +9,25 @@
 
   <!-- 五个图标导航区域 -->
   <view class="navContainer">
-    <view class="navItem">
+    <view class="navItem" bindtap="toRecommendSong">
       <!-- 小程序会计算空白节点 -->
-      <text class="iconfont icon-xihuan"></text>
+      <text class="iconfont2 icon-xihuan"></text>
       <text class="font-sise:26rpx">每日推荐</text>
     </view>
     <view class="navItem">
-      <text class="iconfont icon-yinle"></text>
+      <text class="iconfont2 icon-yinle"></text>
       <text>其他页面</text>
     </view>
     <view class="navItem">
-      <text class="iconfont icon-sort"></text>
+      <text class="iconfont2 icon-sort"></text>
       <text>排行榜</text>
     </view>
     <view class="navItem">
-      <text class="iconfont icon-diepian1"></text>
+      <text class="iconfont2 icon-diepian1"></text>
       <text>电台</text>
     </view>
     <view class="navItem">
-      <text class="iconfont icon-shexiangtou"></text>
+      <text class="iconfont2 icon-shexiangtou"></text>
       <text>直播</text>
     </view>
   </view>

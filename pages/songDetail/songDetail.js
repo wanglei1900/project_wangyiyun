@@ -1,15 +1,11 @@
 // 引入第三方的包
 import PubSub from 'pubsub-js'
-
-// pages/songDetail/songDetail.js
 import request from '../../utils/request'
+import moment from 'moment'
 
 // 获取全局app实例
 let appInstance = getApp()
-
-
 Page({
-
     /**
      * 页面的初始数据
      */
@@ -19,6 +15,8 @@ Page({
         musicId: '',    //音乐id
         musicUrl: '',    //音乐的播放链接
         currentWidth: 0,     //进度条实时的进度
+        currentTime: '00:00',     //实时播放的时长
+        durationTime: '00:00',        //总时长
     },
 
     /**
@@ -58,6 +56,31 @@ Page({
         this.backgroundAudioManager.onStop(() => {
             this.changePlayStatus(false)
         })
+        this.backgroundAudioManager.onTimeUpdate(() => {
+            // console.log('总时长',this.backgroundAudioManager.duration);
+            // console.log('当前时间',this.backgroundAudioManager.currentTime);
+
+            // 格式化实时播放事件
+            let currentTime = moment(this.backgroundAudioManager.currentTime * 1000).format('mm:ss')
+            let currentWidth = this.backgroundAudioManager.currentTime / this.backgroundAudioManager.duration * 450
+            // 更新事件
+            this.setData({
+                currentTime,
+                currentWidth
+            })
+        })
+        // 监听歌曲自然播放结束
+        this.backgroundAudioManager.onEnded(() => {
+            // 自动切换到下一首音乐，并且自动播放
+            // 将切换歌曲的类型发送给recommend页面,并赋值'next'参数
+            PubSub.publish('switchType', 'next')
+            // 还原状态
+            this.setData({
+                currentWidth: 0,     //进度条实时的进度
+                currentTime: '00:00',     //实时播放的时长
+                durationTime: '00:00',        //总时长
+            })
+        })
 
         // 订阅recommendSong页面发布的消息：  musicId
         PubSub.subscribe('musicId', (msg, musicId) => {
@@ -65,29 +88,27 @@ Page({
             // 获取最新的音乐详情数据
             this.getSongDetail(musicId)
             // 自动播放当前音乐(为了自动播放，第一个参数肯定给true,第三个参数不应该传直接请求新的数据)
-            this.musicControl(true,musicId)
-
-            this.setData({
-                musicId
-            })
+            this.musicControl(true, musicId)
         })
     },
 
     // 给onload里封装播放状态的函数
-    changePlayStatus(status){
+    changePlayStatus(status) {
         this.setData({
             isPlay: status
         })
+        // 修改全局音乐播放状态
         appInstance.globalData.isMusicPlay = status
-        
+
     },
 
     // 封装歌曲详情页获取歌曲链接的请求
     async getSongDetail(musicId) {
         let result = await request('/song/detail', { ids: musicId })
-        // console.log(result);
+        let durationTime = result.songs[0].dt
         this.setData({
-            song: result.songs[0]
+            song: result.songs[0],
+            durationTime: moment(durationTime).format('mm:ss')
         })
 
         // 设置详情页的歌曲名字
@@ -113,14 +134,14 @@ Page({
 
     // 封装控制音乐功能播放/暂停的功能函数，
     async musicControl(isPlay, musicId, musicUrl) {
-        if (isPlay) {   //播放
-            if (!musicUrl||(musicId!==this.data.musicId)) {
+        if (isPlay) {   //播放  
+            if (!musicUrl) {    //  ||(musicId!==this.data.musicId)
                 // 获取音乐的播放地址
                 let musicLinkData = await request('/song/url', { id: musicId })
-                let musicUrl = musicLinkData.data[0].url
+                musicUrl = musicLinkData.data[0].url
 
                 this.setData({
-                    musicUrl,
+                    musicUrl
                 })
             }
 
@@ -145,6 +166,17 @@ Page({
     handlerSwitch(event) {
         // 判断按钮是上一首还是下一首
         let { id } = event.currentTarget
+
+        // 关闭当前播放的音乐
+        this.backgroundAudioManager.stop()
+
+        PubSub.subscribe('musicId', (msg, musicId) => {
+            // 获取切歌后的音乐信息
+            this.getSongDetail(musicId)
+            // 自动播放切歌后的信息
+            this.musicControl(true, musicId)
+        })
+
 
         // 将切换歌曲的类型发送给recommend页面
         PubSub.publish('switchType', id)

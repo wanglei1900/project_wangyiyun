@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/wanglei1900/project_wangyiyun#readme",
   "dependencies": {
+    "moment": "^2.29.2",
     "pubsub-js": "^1.9.4"
   }
 }

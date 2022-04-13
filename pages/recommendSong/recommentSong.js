@@ -41,9 +41,9 @@ Page({
         index += 1
       }
 
-      let musicId = recommendList[index].id
-
+      
       // 必须更新下标
+      let musicId = recommendList[index].id
       this.setData({
         index
       })
