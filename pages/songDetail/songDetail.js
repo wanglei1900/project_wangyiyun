@@ -17,7 +17,7 @@ Page({
         isPlay: false,     //标识音乐是否播放
         song: {},     //歌曲详情
         musicId: '',    //音乐id
-        musicUrl: '',    //音乐的链接
+        musicUrl: '',    //音乐的播放链接
         currentWidth: 0,     //进度条实时的进度
     },
 
@@ -38,7 +38,7 @@ Page({
         this.getSongDetail(musicId)
 
         // 判断当前音乐是否在播放
-        if (appInstance.globalData.isMUsicPlay && appInstance.globalData.isMUsicPlay.musicId === musicId) {
+        if (appInstance.globalData.isMusicPlay && appInstance.globalData.isMusicPlay.musicId === musicId) {
             // 说明音乐在播放，修改当前页面音乐播放状态为trur
             this.setData({
                 isPlay: true
@@ -64,7 +64,12 @@ Page({
             // console.log('来自recommendSong页面发来的消息', musicId);
             // 获取最新的音乐详情数据
             this.getSongDetail(musicId)
-            // 自动播放
+            // 自动播放当前音乐(为了自动播放，第一个参数肯定给true,第三个参数不应该传直接请求新的数据)
+            this.musicControl(true,musicId)
+
+            this.setData({
+                musicId
+            })
         })
     },
 
@@ -73,9 +78,9 @@ Page({
         this.setData({
             isPlay: status
         })
-        appInstance.globalData.isMUsicPlay = status
+        appInstance.globalData.isMusicPlay = status
         
-    }
+    },
 
     // 封装歌曲详情页获取歌曲链接的请求
     async getSongDetail(musicId) {
@@ -100,18 +105,24 @@ Page({
             isPlay
         }) */
 
-        let { musicId } = this.data
+        let { musicId, musicUrl } = this.data
 
         // 控制歌曲的播放
-        this.musicControl(isPlay, musicId)
+        this.musicControl(isPlay, musicId, musicUrl)
     },
 
     // 封装控制音乐功能播放/暂停的功能函数，
-    async musicControl(isPlay, musicId) {
+    async musicControl(isPlay, musicId, musicUrl) {
         if (isPlay) {   //播放
-            // 获取音乐的播放地址
-            let musicLinkData = await request('/song/url', { id: musicId })
-            let musicUrl = musicLinkData.data[0].url
+            if (!musicUrl||(musicId!==this.data.musicId)) {
+                // 获取音乐的播放地址
+                let musicLinkData = await request('/song/url', { id: musicId })
+                let musicUrl = musicLinkData.data[0].url
+
+                this.setData({
+                    musicUrl,
+                })
+            }
 
             this.backgroundAudioManager.src = musicUrl
             this.backgroundAudioManager.title = this.data.song.name
@@ -141,11 +152,11 @@ Page({
         // 获取音乐最新的详情数据
 
 
-        if (id == 'prev') {
+        /* if (id == 'prev') {
             console.log('点击了上一首');
         } else {
             console.log('点击了下一首');
-        }
+        } */
     },
 
     /**

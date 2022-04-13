@@ -1,7 +1,7 @@
 // 注册整个小程序应用
 App({
   globalData: {
-    isMUsicPlay:false,  //音乐是否在播放
+    isMusicPlay:false,  //音乐是否在播放
     musicId:'',   // 音乐标识id
   },
   onLaunch() {

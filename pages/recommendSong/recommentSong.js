@@ -33,17 +33,21 @@ Page({
       // console.log(msg,data);
       let { recommendList, index } = this.data
       if (switchType == 'prev') {   // 上一首
+        // 判断临界值
+        (index === 0) && (index = recommendList.length)
         index -= 1
       } else {    //  下一首
+        (index === recommendList.length -1 ) && (index = -1)
         index += 1
       }
+
+      let musicId = recommendList[index].id
 
       // 必须更新下标
       this.setData({
         index
       })
 
-      let musicId = recommendList[index].id
       // 将最新的musicid发送给songdetail页面
       PubSub.publish('musicId', musicId)
     })
@@ -64,7 +68,6 @@ Page({
     // let song = event.currentTarget.dataset.song
     // let musicId = event.currentTarget.dataset.id
     let { song, musicid, index } = event.currentTarget.dataset
-    // console.log(musicid);
     // 更新点击记录的下标
     this.setData({
       index
