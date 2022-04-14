@@ -1,15 +1,20 @@
+@import '/static/iconfont/iconfont.wxss';
+page{
+  height: 100%;
+}
 /* 头部样式 */
-.header{
+.header {
   position: relative;
   width: 100%;
   height: 300rpx;
 }
-.header image{
+
+.header image {
   width: 100%;
   height: 100%;
 }
 
-.date{
+.date {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -21,41 +26,48 @@
   line-height: 100rpx;
   color: #fff;
 }
-.date{
+
+.date {
   font-size: 38rpx;
 }
 
 /* 推荐内容区 */
-.listContainer{
+.listContainer {
   position: relative;
   top: -20rpx;
   padding: 20rpx;
   background: #fff;
   border-radius: 30rpx;
 }
-.listHeader .more{
+
+.listHeader .more {
   float: right;
 }
+
 /* 内容区 */
-.listScroll{
+.listScroll {
   height: calc(100vh - 384rpx);
 }
-.listItem{
+
+.listItem {
   display: flex;
   height: 80rpx;
   margin: 30rpx 0;
 }
-.listItem image{
+
+.listItem image {
   width: 80rpx;
   height: 80rpx;
   border-radius: 10rpx;
 }
-.listItem .musicInfo{
+
+.listItem .musicInfo {
   display: flex;
   flex-direction: column;
   margin-left: 20rpx;
 }
-.listItem .musicInfo text{
+
+.listItem .musicInfo text {
   height: 40rpx;
   line-height: 40rpx;
   font-size: 26rpx;
@@ -65,7 +77,8 @@
   text-overflow: ellipsis;
   display: block;
 }
-.iconfont{
+
+.iconfont {
   position: absolute;
   right: 0;
   width: 80rpx;

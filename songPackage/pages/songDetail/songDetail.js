@@ -1,6 +1,6 @@
 // 引入第三方的包
 import PubSub from 'pubsub-js'
-import request from '../../utils/request'
+import request from '../../../utils/request'
 import moment from 'moment'
 
 // 获取全局app实例
@@ -36,7 +36,7 @@ Page({
         this.getSongDetail(musicId)
 
         // 判断当前音乐是否在播放
-        if (appInstance.globalData.isMusicPlay && appInstance.globalData.isMusicPlay.musicId === musicId) {
+        if (appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === musicId) {
             // 说明音乐在播放，修改当前页面音乐播放状态为trur
             this.setData({
                 isPlay: true

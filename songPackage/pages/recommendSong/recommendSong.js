@@ -1,7 +1,7 @@
 // 引入第三方的包
 import PubSub from 'pubsub-js'
 
-import request from '../../utils/request'
+import request from '../../../utils/request'
 // pages/recommendSong/recommentSong.js
 Page({
 
@@ -75,7 +75,7 @@ Page({
 
     // 路由跳转传参： query
     wx.navigateTo({
-      url: '/pages/songDetail/songDetail?musicid=' + musicid,
+      url: '/songPackage/pages/songDetail/songDetail?musicid=' + musicid,
     })
   },
 

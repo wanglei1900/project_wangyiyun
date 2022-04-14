@@ -1,8 +1,6 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/recommendSong/recommentSong",
-        "pages/songDetail/songDetail",
         "pages/video/video",
         "pages/personal/personal",
         "pages/login/login"
@@ -39,5 +37,26 @@
             }
         ]
     },
-    "requiredBackgroundModes": ["audio"]
+    "requiredBackgroundModes": [
+        "audio"
+    ],
+    "subpackages": [
+        {
+            "root": "songPackage",
+            "name": "song",
+            "pages": [
+                "pages/recommendSong/recommendSong",
+                "pages/songDetail/songDetail"
+            ],
+            "independent": true
+        }
+    ],
+    "preloadRule": {
+        "pages/index/index": {
+            "packages": [
+                "song"
+            ],
+            "network": "all"
+        }
+    }
 }
